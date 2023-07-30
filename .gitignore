@@ -1,0 +1,10 @@
+# Ficheros intermedios de Vim
+*.swp
+
+# Ficheros de compilación
+*.o
+*.d
+
+
+# Directorios de compilación
+build/

@@ -25,3 +25,5 @@ hay que instalar `gperf`.
 Siguiendo las instrucciones podemos terminar con el make flash y el make monitor
 
 Se sale pulsando Ctrl+], que en teclado español es Ctrl+Alt+] (la tecla dos a la derecha de la p, que tiene * + ])
+
+Para poder compilar el proyecto hay que exportar al PATH la ruta donde está `esp/xtensa-lx106-elf/bin` de acuerdo a [esto](https://docs.espressif.com/projects/esp8266-rtos-sdk/en/latest/get-started/linux-setup.html#toolchain-setup)
