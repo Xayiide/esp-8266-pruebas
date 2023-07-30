@@ -3,8 +3,8 @@
  * el LED 1 y el LED 2.
  */
 
-#define LED1 D0
-#define LED2 D4
+#define LED1 D0 /* GPIO 16 */
+#define LED2 D4 /* GPIO 02 */
 
 
 void setup() {
