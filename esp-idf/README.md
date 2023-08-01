@@ -18,3 +18,6 @@ Para salir del `make monitor` hay que pulsar <kbd>Ctrl</kbd> + <kbd>Alt Gr</kbd>
 
 # hello\_world
 Este ejemplo es [este](https://github.com/espressif/ESP8266_RTOS_SDK/tree/af0cdc36fa2600033d0a09301c754008cf1503c1/examples/get-started/hello_world).
+
+# prueba0
+Este ejemplo es el equivalente usando el entorno de ESP-IDF a [este](../arduino/prueba0.cpp). Hace que los dos LEDs del NodeMCU se enciendan intermitentemente cada medio segundo. Cuando uno se enciende, el otro se apaga.

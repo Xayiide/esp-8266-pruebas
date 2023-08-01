@@ -8,3 +8,7 @@
 
 # Directorios de compilación
 build/
+
+# Ficheros de configuración de Eclipse
+.project
+.cproject

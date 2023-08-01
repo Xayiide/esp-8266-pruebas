@@ -27,3 +27,7 @@ Siguiendo las instrucciones podemos terminar con el make flash y el make monitor
 Se sale pulsando <kbd>Ctrl</kbd> + <kbd>]</kbd>, que en teclado español es <kbd>Ctrl</kbd> + <kbd>Alt</kbd> + <kbd>]</kbd> (la tecla dos a la derecha de la *p*, que tiene _* + ]_)
 
 Para poder compilar el proyecto hay que exportar al PATH la ruta donde está `esp/xtensa-lx106-elf/bin` de acuerdo a [esto](https://docs.espressif.com/projects/esp8266-rtos-sdk/en/latest/get-started/linux-setup.html#toolchain-setup)
+
+
+### Usar Eclipse
+Para poder usar el IDE de Eclipse se sigue [esta guía](https://docs.espressif.com/projects/esp8266-rtos-sdk/en/latest/get-started/eclipse-setup.html)
