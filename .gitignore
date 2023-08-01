@@ -12,3 +12,4 @@ build/
 # Ficheros de configuración de Eclipse
 .project
 .cproject
+.settings/
