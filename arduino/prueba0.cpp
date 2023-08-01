@@ -1,7 +1,6 @@
 /* Esto está hecho y compilado con el IDE de Arduino para la placa NodeMCU,
  * con micro esp8266 de Espressif. Enciende las dos luces que tiene la placa,
- * el LED 1 y el LED 2.
- */
+ * el LED 1 y el LED 2. */
 
 #define LED1 D0 /* GPIO 16 */
 #define LED2 D4 /* GPIO 02 */
