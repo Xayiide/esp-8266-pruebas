@@ -18,7 +18,6 @@ void app_main()
     io_conf.pull_up_en   = 1;
     gpio_config(&io_conf);
 
-
     while (1) {
         gpio_set_level(LED1, 0);
         gpio_set_level(LED2, 1);

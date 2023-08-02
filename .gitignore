@@ -5,7 +5,6 @@
 *.o
 *.d
 
-
 # Directorios de compilación
 build/
 
@@ -13,3 +12,6 @@ build/
 .project
 .cproject
 .settings/
+
+# Ficheros .old del SDK
+sdkconfig.old
