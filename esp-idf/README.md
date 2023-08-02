@@ -28,3 +28,5 @@ Este ejemplo es el equivalente usando el entorno de ESP-IDF a [este](../arduino/
 # prueba2
 Este ejemplo es el equivalente usando el entorno de ESP-IDF a [este](../arduino/prueba2.cpp). Si recibe un '1' por la UART enciende el LED, y lo apaga con un '0'.
 ![](https://github.com/Xayiide/esp-8266-pruebas/blob/main/assets/NodemcuUART.png)
+
+> En lugar de ser un AdaFruit es un NodeMCU de Spressif
