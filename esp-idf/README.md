@@ -21,3 +21,6 @@ Este ejemplo es [este](https://github.com/espressif/ESP8266_RTOS_SDK/tree/af0cdc
 
 # prueba0
 Este ejemplo es el equivalente usando el entorno de ESP-IDF a [este](../arduino/prueba0.cpp). Hace que los dos LEDs del NodeMCU se enciendan intermitentemente cada medio segundo. Cuando uno se enciende, el otro se apaga.
+
+# prueba1
+Este ejemplo es el equivalente usando el entorno de ESP-IDF a [este](../arduino/prueba1.cpp). Se conecta a la WiFi descrita y enciende las luces como en la prueba0.
