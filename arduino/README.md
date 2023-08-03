@@ -10,3 +10,6 @@ Se prueba la conexión WiFi. Se consigue conectar a la red compartida por un sma
 # prueba2.cpp
 Se prueba la conexión por UART y se enciende un LED conecado a la placa cuando se recibe un '1' y apagarlo cuando se recibe un '0'.  
 ![](https://github.com/Xayiide/esp-8266-pruebas/blob/main/assets/UnoUART.png)
+
+# prueba3:
+Una prueba en la que se conectan el Arduino y el NodeMCU, se mandan mensajes por UART y encienden un LED. Dentro hay otro README donde se explica mejor.
