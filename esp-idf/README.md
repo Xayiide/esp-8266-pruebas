@@ -30,3 +30,6 @@ Este ejemplo es el equivalente usando el entorno de ESP-IDF a [este](../arduino/
 ![](https://github.com/Xayiide/esp-8266-pruebas/blob/main/assets/NodemcuUART.png)
 
 > En lugar de ser un AdaFruit es un NodeMCU de Spressif
+
+# prueba3
+Este ejemplo es el equivalente usando el entorno de ESP-IDF a [este](../arduino/prueba3/). Hay un README dentro de la carpeta que lo explica mejor.
