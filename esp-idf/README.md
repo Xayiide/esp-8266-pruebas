@@ -31,5 +31,9 @@ Este ejemplo es el equivalente usando el entorno de ESP-IDF a [este](../arduino/
 
 > En lugar de ser un AdaFruit es un NodeMCU de Spressif
 
+En este ejemplo es importante aclarar dos cosas, que servirán también para la prueba3:
+1- No se puede grabar la placa si están los pines de Rx (GPIO3) y Tx (GPIO1) conectados.
+2- No se pueden enviar datos desde el ordenador si están los pines Rx y Tx usados por otro lado.
+
 # prueba3
 Este ejemplo es el equivalente usando el entorno de ESP-IDF a [este](../arduino/prueba3/). Hay un README dentro de la carpeta que lo explica mejor.
