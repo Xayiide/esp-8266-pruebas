@@ -1,5 +1,7 @@
-# Instrucciones
+# Introducción
+En este repo voy a hacer unas pruebas con diferentes microprocesadores. En un principio iré haciendo las mismas pruebas pero con dos entornos diferentes: el de Arduino y el de ESP-IDF. En la carpeta [arduino](./arduino/) iré guardando los ejemplos usando el IDE de Arduino. En la carpeta [esp-idf](./esp-idf/) se guardarán las versiones programadas para usar el entorno ESP-IDF con el SDK específico.
 
+# Instrucciones
 ## Añadir esp8266 a Arduino
 https://github.com/esp8266/arduino#installing-with-boards-manager
 
