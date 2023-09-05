@@ -27,7 +27,7 @@ static void uart_task()
     data = (uint8_t *) malloc(BUF_SIZE);
 
     while (1) {
-        len =  uart_read_bytes(UART_NUM_0, data, BUF_SIZE,
+        len = uart_read_bytes(UART_NUM_0, data, BUF_SIZE,
                                20 / portTICK_RATE_MS);
         if (len == 1) {
             printf("Se ha leído el dato: %d\n", *data);
