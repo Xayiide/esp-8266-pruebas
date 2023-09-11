@@ -37,3 +37,9 @@ En este ejemplo es importante aclarar dos cosas, que servirán también para la 
 
 # Prueba 3:
 Este ejemplo es el equivalente usando el entorno de ESP-IDF a [arduino/prueba3](../arduino/prueba3/). Hay un README dentro de la carpeta que lo explica mejor.
+
+# Prueba 4:
+Prueba no terminada. No tiene correspondiente con Arduino. Es una prueba de servidor y cliente HTTP.
+
+# Prueba 5:
+Por ahora no tiene correspondencia en Arduino. Es una prueba de fotorresistencias y sensores lumínicos.
