@@ -14,3 +14,10 @@ Esta prueba hace uso de un Arduino UNO para probar la conexión por UART. El pue
 # Prueba 3:
 Esta prueba hace uso tanto del NodeMCU como del Arduino UNO. El Arduino se conectará al PC por su puerto de USB (mapeado a UART). Por ahí será por donde recibirá los unos y ceros, como en la [prueba 2](#prueba-2). Pero ahora en lugar de activar directamente el LED, el Arduino enviará lo que ha recibido del usuario al NodeMCU, que será el que active el LED siguiendo la misma lógica ('1' para encenderlo, '0' para apagarlo).
 ![](https://github.com/Xayiide/esp-8266-pruebas/blob/main/assets/NodeUnoUART.png)
+
+
+(Faltan las pruebas 4 y 5)
+
+# Prueba 6:
+Prueba rápida de una pantalla LCD 1602A.
+
