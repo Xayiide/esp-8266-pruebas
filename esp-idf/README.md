@@ -43,3 +43,6 @@ Prueba no terminada. No tiene correspondiente con Arduino. Es una prueba de serv
 
 # Prueba 5:
 Por ahora no tiene correspondencia en Arduino. Es una prueba de fotorresistencias y sensores lumínicos.
+
+# Prueba 6:
+Prueba rápida de una pantalla LCD 1602A.
