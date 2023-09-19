@@ -6,7 +6,9 @@
 
 void app_main()
 {
-    printf("Prueba LCD: %d\n", LCD_CLEARDISPLAY);
+    lcd_lcd(7, 6, 5, 4, 3, 2);
+
+    printf("Prueba LCD\n");
     vTaskDelay(2500 / portTICK_PERIOD_MS);
 }
 

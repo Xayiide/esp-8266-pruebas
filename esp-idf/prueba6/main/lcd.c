@@ -37,7 +37,7 @@ void lcd_init(uint8_t fourbitmode, uint8_t rs, uint8_t rw, uint8_t enable,
     else
         this._displayfunction = LCD_8BITMODE | LCD_1LINE | LCD_5x8DOTS;
 
-    lcd_begin(16, 1, LCD_5x8DOTS);
+    lcd_begin(16, 2, LCD_5x8DOTS);
 }
 
 

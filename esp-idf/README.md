@@ -45,4 +45,11 @@ Prueba no terminada. No tiene correspondiente con Arduino. Es una prueba de serv
 Por ahora no tiene correspondencia en Arduino. Es una prueba de fotorresistencias y sensores lumínicos.
 
 # Prueba 6:
-Prueba rápida de una pantalla LCD 1602A.
+Prueba rápida de una pantalla LCD 1602A. En realidad es un intento de port de la librería LiquidCrystal de Arduino pero ha dado demasiados problemas para seguir intentándolo por ahora.
+
+# Prueba 7:
+Una prueba del uso de ezwifi
+
+# ezwifi:
+Voy a ir metiendo aquí todas las funciones que me faciliten la vida a la hora
+de conectarme a la wifi etc.
