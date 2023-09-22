@@ -1,72 +1,75 @@
-#include <string.h>
+#include <string.h> /* memcpy */
 
+#include "esp_event.h" /* esp_event_loop_create_default */
+#include "esp_wifi.h"  /* wifi     */
+#include "esp_log.h"   /* ESP_LOGI */
+#include "esp_event_loop.h" /* Event Groups */
+#include "tcpip_adapter.h"  /* IP2STR       */
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
 #include "freertos/event_groups.h"
-
-#include "esp_event.h"
-#include "esp_wifi.h"
-#include "esp_log.h"
-#include "esp_event_loop.h"
-#include "tcpip_adapter.h"
-
 #include "lwip/err.h"
 #include "lwip/sys.h"
 
-#define GOT_IPV4_BIT   BIT(0)
-#define GOT_IPV6_BIT   BIT(1)
+#include "nvs.h"
+#include "nvs_flash.h"
 
-#define CONNECTED_BITS (GOT_IPV4_BIT)
+#include "esp_netif.h"
+
+#include "ezconnect.h"
 
 
+static EventGroupHandle_t connect_event_group;
+static ip4_addr_t         ip_addr;
+static char               g_ssid[SSID_LEN]   = "SSID";
+static char               g_passwd[PASS_LEN] = "PASS";
 
-static EventGroupHandle_t s_connect_event_group;
-static ip4_addr_t         s_ip_addr;
-static char               s_connection_name[32] = "SSID";
-static char               s_connection_pass[32] = "PASS";
+static const char *TAG = "[ezconnect]";
 
-static const char        *TAG = "[ezconnect]";
+
 
 static void on_wifi_disconnect(void *arg, esp_event_base_t event_base,
                                int32_t event_id, void *event_data)
 {
-    system_event_sta_disconnected_t *event = 
-        (system_event_sta_disconnected_t *) event_data;
+    system_event_sta_disconnected_t *event =
+            (system_event_sta_disconnected_t *) event_data;
 
-    ESP_LOGI(TAG, "Wi-Fi disconnected, trying to recconect...");
+    ESP_LOGI(TAG, "Desconectado de %s, intentando reconexión...", g_ssid);
     if (event->reason == WIFI_REASON_BASIC_RATE_NOT_SUPPORT) {
-        esp_wifi_set_protocol(ESP_IF_WIFI_STA, WIFI_PROTOCOL_11B |
-                WIFI_PROTOCOL_11G | WIFI_PROTOCOL_11N);
+        /*Switch to 802.11 bgn mode */
+        ESP_LOGI(TAG, "Cambiando a modo 802.11 bgn");
+        esp_wifi_set_protocol(ESP_IF_WIFI_STA,
+                WIFI_PROTOCOL_11B | WIFI_PROTOCOL_11G | WIFI_PROTOCOL_11N);
     }
     ESP_ERROR_CHECK(esp_wifi_connect());
 }
 
 static void on_got_ip(void *arg, esp_event_base_t event_base,
-                      int32_t event_id, void *event_data)
+                         int32_t event_id, void *event_data)
 {
     ip_event_got_ip_t *event = (ip_event_got_ip_t *) event_data;
-    memcpy(&s_ip_addr, &event->ip_info.ip, sizeof(s_ip_addr));
-    xEventGroupSetBits(s_connect_event_group, GOT_IPV4_BIT);
+    memcpy(&ip_addr, &event->ip_info.ip, sizeof(ip_addr));
+    xEventGroupSetBits(connect_event_group, GOT_IPV4_BIT);
 }
 
 static void start(void)
 {
     wifi_init_config_t cfg = WIFI_INIT_CONFIG_DEFAULT();
-    //ESP_ERROR_CHECK(esp_wifi_init(&cfg));
-    esp_wifi_init(&cfg);
-    
-    ESP_ERROR_CHECK(esp_event_handler_register(WIFI_EVENT, 
-                WIFI_EVENT_STA_DISCONNECTED,
-                &on_wifi_disconnect, NULL));
+    wifi_config_t      wifi_config = { 0 };
+
+    ESP_ERROR_CHECK(esp_wifi_init(&cfg));
+
+    ESP_ERROR_CHECK(esp_event_handler_register(WIFI_EVENT,
+            WIFI_EVENT_STA_DISCONNECTED, &on_wifi_disconnect, NULL));
     ESP_ERROR_CHECK(esp_event_handler_register(IP_EVENT,
-                IP_EVENT_STA_GOT_IP, &on_got_ip, NULL));
+            IP_EVENT_STA_GOT_IP, &on_got_ip, NULL));
 
     ESP_ERROR_CHECK(esp_wifi_set_storage(WIFI_STORAGE_RAM));
-    wifi_config_t wifi_config = { 0 };
-    strncpy((char *) &wifi_config.sta.ssid, s_connection_name, 32);
-    strncpy((char *) &wifi_config.sta.password, s_connection_pass, 32);
 
-    ESP_LOGI(TAG, "Connecting to %s...", wifi_config.sta.ssid);
+    strncpy((char *) &wifi_config.sta.ssid,     g_ssid,   SSID_LEN);
+    strncpy((char *) &wifi_config.sta.password, g_passwd, PASS_LEN);
+
+    ESP_LOGI(TAG, "Conectándose al SSID %s...", wifi_config.sta.ssid);
     ESP_ERROR_CHECK(esp_wifi_set_mode(WIFI_MODE_STA));
     ESP_ERROR_CHECK(esp_wifi_set_config(ESP_IF_WIFI_STA, &wifi_config));
     ESP_ERROR_CHECK(esp_wifi_start());
@@ -76,6 +79,7 @@ static void start(void)
 static void stop(void)
 {
     esp_err_t err = esp_wifi_stop();
+
     if (err == ESP_ERR_WIFI_NOT_INIT) {
         return;
     }
@@ -83,62 +87,59 @@ static void stop(void)
     ESP_ERROR_CHECK(err);
 
     ESP_ERROR_CHECK(esp_event_handler_unregister(WIFI_EVENT,
-                WIFI_EVENT_STA_DISCONNECTED,
-                &on_wifi_disconnect));
-    ESP_ERROR_CHECK(esp_event_handler_unregister(IP_EVENT, 
-                IP_EVENT_STA_GOT_IP, 
-                &on_got_ip));
+            WIFI_EVENT_STA_DISCONNECTED, &on_wifi_disconnect));
+    ESP_ERROR_CHECK(esp_event_handler_unregister(IP_EVENT,
+            IP_EVENT_STA_GOT_IP, &on_got_ip));
 
     ESP_ERROR_CHECK(esp_wifi_deinit());
-    ESP_LOGI(TAG, "Disconnected");
 }
 
-esp_err_t connect(void)
+
+
+esp_err_t ezconnect(void)
 {
-    if (s_connect_event_group != NULL) {
+    if (connect_event_group != NULL) {
         return ESP_ERR_INVALID_STATE;
     }
 
-    s_connect_event_group = xEventGroupCreate();
+    connect_event_group = xEventGroupCreate();
     start();
-    xEventGroupWaitBits(s_connect_event_group, CONNECTED_BITS, true,
-            true, portMAX_DELAY);
-    ESP_LOGI(TAG, "Connected to %s", s_connection_name);
-    ESP_LOGI(TAG, "IPv4 address: " IPSTR, IP2STR(&s_ip_addr));
-    
+    xEventGroupWaitBits(connect_event_group, CONNECTED_BITS, true, true,
+            portMAX_DELAY);
+    ESP_LOGI(TAG, "Conectado al SSID %s", g_ssid);
+    ESP_LOGI(TAG, "IP: " IPSTR, IP2STR(&ip_addr));
     return ESP_OK;
 }
 
-esp_err_t disconnect(void)
+esp_err_t ezdisconnect(void)
 {
-    if (s_connect_event_group == NULL) {
+    if (connect_event_group == NULL) {
         return ESP_ERR_INVALID_STATE;
     }
-
-    vEventGroupDelete(s_connect_event_group);
-    s_connect_event_group = NULL;
+    vEventGroupDelete(connect_event_group);
+    connect_event_group = NULL;
     stop();
-    ESP_LOGI(TAG, "Disconnected from %s", s_connection_name);
-    s_connection_name[0] = '\0';
-
+    ESP_LOGI(TAG, "Desconectado de %s", g_ssid);
+    g_ssid[0] = '\0';
     return ESP_OK;
 }
 
-esp_err_t set_connection_info(const char *ssid, const char *pass)
+esp_err_t ez_set_connection_info(const char *ssid, const char *passwd)
 {
-    strncpy(s_connection_name, ssid, sizeof(s_connection_name));
-    strncpy(s_connection_pass, pass, sizeof(s_connection_name));
+    strncpy(g_ssid, ssid, sizeof(g_ssid));
+    strncpy(g_passwd, passwd, sizeof(g_passwd));
 
     return ESP_OK;
 }
+
+
 
 void app_main()
 {
-    const char *ssid = "SSID";
-    const char *pass = "PASS";
+    ESP_ERROR_CHECK(nvs_flash_init());
+    ESP_ERROR_CHECK(esp_netif_init());
+    ESP_ERROR_CHECK(esp_event_loop_create_default());
 
-    set_connection_info(ssid, pass);
-
-    ESP_ERROR_CHECK(connect());
-    for(;;);
+    ESP_ERROR_CHECK(ez_set_connection_info("SSID", "PASS"));
+    ESP_ERROR_CHECK(ezconnect());
 }
