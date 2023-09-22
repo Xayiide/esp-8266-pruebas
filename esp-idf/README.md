@@ -53,3 +53,6 @@ Una prueba del uso de ezwifi
 # ezwifi:
 Voy a ir metiendo aquí todas las funciones que me faciliten la vida a la hora
 de conectarme a la wifi etc.
+
+# ezconnect:
+Es lo mismo que ezwifi pero mejor, así que paso a utilizar este.
