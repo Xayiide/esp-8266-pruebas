@@ -1,20 +1,16 @@
-#include <string.h> /* memcpy */
+#include <string.h>                /* memcpy                        */
 
-#include "esp_event.h" /* esp_event_loop_create_default */
-#include "esp_wifi.h"  /* wifi     */
-#include "esp_log.h"   /* ESP_LOGI */
-#include "esp_event_loop.h" /* Event Groups */
-#include "tcpip_adapter.h"  /* IP2STR       */
-#include "freertos/FreeRTOS.h"
-#include "freertos/task.h"
-#include "freertos/event_groups.h"
-#include "lwip/err.h"
-#include "lwip/sys.h"
+#include "esp_event.h"             /* esp_event_loop_create_default */
+#include "esp_wifi.h"              /* wifi                          */
+#include "esp_log.h"               /* ESP_LOGI                      */
+#include "esp_event_loop.h"        /* Event Groups                  */
+#include "tcpip_adapter.h"         /* IP2STR                        */
+#include "freertos/event_groups.h" /* event groups                  */
 
-#include "nvs.h"
-#include "nvs_flash.h"
+#include "nvs.h"                   /* nvs_flash_init                */
+#include "nvs_flash.h"             /* nvs_flash_init                */
 
-#include "esp_netif.h"
+#include "esp_netif.h"             /* esp_netif_init                */
 
 #include "ezconnect.h"
 
@@ -134,7 +130,6 @@ esp_err_t ez_set_connection_info(const char *ssid, const char *passwd)
 
 
 
-#ifdef PRUEBA
 void app_main()
 {
     ESP_ERROR_CHECK(nvs_flash_init());
@@ -144,4 +139,3 @@ void app_main()
     ESP_ERROR_CHECK(ez_set_connection_info("SSID", "PASS"));
     ESP_ERROR_CHECK(ezconnect());
 }
-#endif
