@@ -127,15 +127,3 @@ esp_err_t ez_set_connection_info(const char *ssid, const char *passwd)
 
     return ESP_OK;
 }
-
-
-
-void app_main()
-{
-    ESP_ERROR_CHECK(nvs_flash_init());
-    ESP_ERROR_CHECK(esp_netif_init());
-    ESP_ERROR_CHECK(esp_event_loop_create_default());
-
-    ESP_ERROR_CHECK(ez_set_connection_info("SSID", "PASS"));
-    ESP_ERROR_CHECK(ezconnect());
-}
