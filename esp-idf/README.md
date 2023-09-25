@@ -56,3 +56,6 @@ de conectarme a la wifi etc.
 
 # ezconnect:
 Es lo mismo que ezwifi pero mejor, así que paso a utilizar este.
+
+# ezhttp:
+Funciones para http
