@@ -21,3 +21,5 @@ Esta prueba hace uso tanto del NodeMCU como del Arduino UNO. El Arduino se conec
 # Prueba 6:
 Prueba rápida de una pantalla LCD 1602A.
 
+# temt6000:
+Prueba de Arduino con el sensor de intensidad luminosa temt6000
