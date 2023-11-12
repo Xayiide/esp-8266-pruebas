@@ -11,5 +11,7 @@ Cuando se utiliza un voltaje de referencia de 5 V, las lecturas con un multímet
 
 # Recursos
 [Esta](https://protosupplies.com/product/temt6000-ambient-light-sensor-module/) es una guía muy buena.
+
 [Este es un vídeo muy bueno](https://www.youtube.com/watch?v=HwQFhM8IdeQ)
+
 [Este es el manual del temt6000](https://www.vishay.com/docs/81579/temt6000.pdf)
